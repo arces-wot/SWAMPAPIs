@@ -16,3 +16,12 @@ jobs:
       run: docker images
     - name: Save the image
       run: 'docker save -o ./swampPack.docker arces/swamp-api:v1.0.1'
+    - name: SCP Files
+      uses: appleboy/scp-action@v0.0.1
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.MML_USERNAME }}
+        key: ${{ secrets.MML_DEPLOY }}
+        source: "swampPack.docker"
+        target: "swampPack.docker"
+        

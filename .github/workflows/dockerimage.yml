@@ -19,7 +19,7 @@ jobs:
     - name: SCP Files
       uses: appleboy/scp-action@v0.0.1
       with:
-        host: ${{ secrets.HOST }}
+        host: mml.arces.unibo.it
         username: ${{ secrets.MML_USERNAME }}
         key: ${{ secrets.MML_DEPLOY }}
         source: "swampPack.docker"

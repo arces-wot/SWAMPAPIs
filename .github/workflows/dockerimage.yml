@@ -11,8 +11,8 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag arces/swamp-api:$(date +%s)
+      run: docker build . --file Dockerfile --tag arces/swamp-api:v1.0.1
     - name: List build images
       run: docker images
     - name: Save the image
-      run: 'docker save -o ./swampPack.docker arces/swamp-api:$(date +%s)'
+      run: 'docker save -o ./swampPack.docker arces/swamp-api:v1.0.1'

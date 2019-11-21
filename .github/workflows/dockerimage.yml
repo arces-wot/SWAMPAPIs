@@ -14,6 +14,8 @@ jobs:
       run: docker build . --file Dockerfile --tag arces/swamp-api:v1.0.1
     - name: List build images
       run: docker images
+    - name: Create build folder
+      run: mkdir build
     - name: Save the image
       run: 'docker save -o ./build/swampPack.docker arces/swamp-api:v1.0.1'
     - name: Copy via ssh

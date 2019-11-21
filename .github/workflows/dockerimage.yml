@@ -22,11 +22,7 @@ jobs:
         HOST: "mml.arces.unibo.it"
         USERNAME: ${{ secrets.MML_USERNAME }}
         KEY: ${{ secrets.MML_DEPLOY }}
-      with:
-        host: "mml.arces.unibo.it"
-        port: 22 
-        username: ${{ secrets.MML_USERNAME }}
-        key: ${{ secrets.MML_DEPLOY }}
-        source: "swampPack.docker"
-        target: "swampPack.docker"
+        SOURCE: "swampPack.docker"
+        TARGET: "swampPack.docker"
+        
         

@@ -1,0 +1,31 @@
+name: Docker Image
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag arces/swamp-api:v1.0.1
+    - name: List build images
+      run: docker images
+    - name: Create build folder
+      run: mkdir build
+    - name: Save the image
+      run: 'docker save -o ./build/swampPack.docker arces/swamp-api:v1.0.1'
+    - name: Copy via ssh
+      uses: garygrossgarten/github-action-scp@v0.5.3
+      with:
+        local: ./build
+        remote: /home/cristianoaguzzi
+        host: mml.arces.unibo.it
+        username: ${{ secrets.MML_USERNAME }}
+        privateKey: ${{ secrets.MML_DEPLOY }}
+        passphrase:  ${{ secrets.MML_TOKEN }}   
+        
+        

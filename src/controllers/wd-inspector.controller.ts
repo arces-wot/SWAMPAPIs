@@ -181,7 +181,8 @@ export class WdInspectorController {
       }
     }) change: RequestStatusChange): void {
     const req = (plansData as any)[field].find((ele: any) => ele.id === request);
-    req.status = change.status.toString()
+    req.status = change.status.toString();
+    req.message = change.message.toString();
   }
 }
 

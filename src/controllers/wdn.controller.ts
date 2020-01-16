@@ -66,14 +66,15 @@ export class WdnController {
     const sensorList = {
       "valle1": {
         location: {
-          lat: 44.774522,
-          lon: 10.723393
+          lat: 44.774533,
+          lon: 10.723372
         }
+
       },
       "monte1": {
         location: {
-          lat: 44.774533,
-          lon: 10.723372
+          lat: 44.774522,
+          lon: 10.723393
         }
       },
       "fosd1": {
@@ -138,9 +139,19 @@ export class WdnController {
         (sensorList as any)[key].level = binding.level.value
       }
     });
-    return JSON.stringify(sensorList)
-  }
 
+    return this.serilizeSensorList(sensorList)
+  }
+  private serilizeSensorList(sensorList: any) {
+    const result = Object.keys(sensorList).map((key: string) => {
+      return {
+        id: key,
+        location: sensorList[key].location,
+        level: sensorList[key].level,
+      }
+    })
+    return JSON.stringify(result)
+  }
   @get('/v0/WDmanager/{id}/wdn/nodes')
   nodes(): string {
     return JSON.stringify(data.nodes);

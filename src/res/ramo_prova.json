@@ -16167,7 +16167,7 @@
         },
         {
             "type": "Weir",
-            "id": "2991",
+            "id": "Fosdondo Sud",
             "location": {
                 "lat": 44.7795262089,
                 "lon": 10.7232298953
@@ -16193,7 +16193,7 @@
         },
         {
             "type": "Weir",
-            "id": "2993",
+            "id": "San Michele",
             "location": {
                 "lat": 44.7745341766,
                 "lon": 10.7233746178
@@ -16206,7 +16206,7 @@
         },
         {
             "type": "Weir",
-            "id": "2994",
+            "id": "Paratoia San Michele",
             "location": {
                 "lat": 44.7576756466,
                 "lon": 10.7390720117
@@ -16219,7 +16219,7 @@
         },
         {
             "type": "Weir",
-            "id": "2995",
+            "id": "Diramazione San Michele",
             "location": {
                 "lat": 44.7870621296,
                 "lon": 10.7136780504
@@ -16232,7 +16232,7 @@
         },
         {
             "type": "Weir",
-            "id": "2996",
+            "id": "Fosdondo Nord",
             "location": {
                 "lat": 44.783224,
                 "lon": 10.717313

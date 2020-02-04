@@ -6,12 +6,12 @@ interface WeirStatus {
 
 const weirStatuses: Map<string, WeirStatus> = new Map<string, WeirStatus>([
   ["2990", { openLevel: 0 }],
-  ["2991", { openLevel: 0 }],
+  ["Fosdondo Sud", { openLevel: 0 }],
   ["2992", { openLevel: 0 }],
-  ["2993", { openLevel: 0 }],
-  ["2994", { openLevel: 0 }],
-  ["2995", { openLevel: 0 }],
-  ["2996", { openLevel: 0 }],
+  ["San Michele", { openLevel: 0 }],
+  ["Paratoia San Michele", { openLevel: 0 }],
+  ["Diramazione San Michele", { openLevel: 0 }],
+  ["Fosdondo Nord", { openLevel: 0 }],
 ]);
 
 export class WeirController {

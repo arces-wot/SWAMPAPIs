@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { get, post, param, requestBody, put, modelToJsonSchema } from '@loopback/rest';
+import data from '../res/appezzamenti.out.json';
 import { model } from '@loopback/repository'
 
 const plansData = {};
@@ -39,71 +40,15 @@ export class WdInspectorController {
     return JSON.stringify([
       {
         "name": "Bertacchini's Farm",
-        fields: [
-          {
-            id: "1",
-            location: {
-              "lat": 44.777572,
-              "long": 10.715764
-            },
-            area: [
-              {
-                "lat": 44.777572,
-                "lon": 10.715764
-              },
-              {
-                "lat": 44.777201,
-                "lon": 10.717981
-              },
-              {
-                "lat": 44.778039,
-                "lon": 10.719505
-              },
-              {
-                "lat": 44.779151,
-                "lon": 10.717402
-              },
-              {
-                "lat": 44.777572,
-                "lon": 10.715764
-              }
-            ]
-          }
-        ]
+        fields: data.filter(field => field.id === "2547")
       },
       {
         "name": "Ferrari's Farm",
-        fields: [
-          {
-            id: "2",
-            location: {
-              "lat": 44.777572,
-              "long": 10.715764
-            },
-            "area": [
-              {
-                "lat": 44.775918,
-                "lon": 10.724664
-              },
-              {
-                "lat": 44.774936,
-                "lon": 10.723377
-              },
-              {
-                "lat": 44.773740,
-                "lon": 10.725684
-              },
-              {
-                "lat": 44.774852,
-                "lon": 10.727261
-              },
-              {
-                "lat": 44.775918,
-                "lon": 10.724664
-              }
-            ]
-          }
-        ]
+        fields: data.filter(field => ["22602", "3097", "31310", "22603", "10735", "2079"].includes(field.id))
+      },
+      {
+        "name": "Bonaccini's Farm",
+        fields: data.filter(field => ["23572", "23571"].includes(field.id))
       },
     ])
   }

@@ -1,6 +1,7 @@
 import { get, param } from '@loopback/rest';
 import data from '../res/ramo_prova.json';
 import * as sepajs from "@arces-wot/sepa-js";
+import jsap from "../res/wda.jsap.json";
 
 const uriToObjKey: Map<string, string> = new Map<string, string>([
   ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL1", "monte1"],
@@ -18,8 +19,27 @@ const uriToObjKey: Map<string, string> = new Map<string, string>([
 export class WdnController {
   constructor() { }
 
+  async updateWiers() {
+    const sapp = new sepajs.Jsap(jsap)
+    const query = await sapp.WEIRS.query()
+
+    const weirs = query.results.bindings.map(({ root, name, lat, long }: any) => {
+      return {
+        type: "Weir",
+        id: root.value,
+        name: name.value,
+        location: {
+          lat: parseFloat(lat.value),
+          lon: parseFloat(long.value)
+        }
+      }
+    })
+
+    data.nodes.push(...weirs);
+  }
   @get('/v0/WDmanager/{id}/wdn/')
-  network(): string {
+  async network(): Promise<string> {
+    await this.updateWiers()
 
     return JSON.stringify(data);
   }
@@ -153,7 +173,8 @@ export class WdnController {
     return JSON.stringify(result)
   }
   @get('/v0/WDmanager/{id}/wdn/nodes')
-  nodes(): string {
+  async nodes(): Promise<string> {
+    await this.updateWiers()
     return JSON.stringify(data.nodes);
   }
 
@@ -164,7 +185,8 @@ export class WdnController {
   }
 
   @get('/v0/WDmanager/{id}/wdn/nodes/{nodeId}')
-  nodeInfo(@param.path.string('nodeId') nodeId: string): string {
+  async nodeInfo(@param.path.string('nodeId') nodeId: string): Promise<string> {
+    await this.updateWiers()
     const node = data.nodes.find((value) => {
       return value.id === nodeId
     })

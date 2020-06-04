@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { get, post, param, requestBody, put, modelToJsonSchema, del } from '@loopback/rest';
+import { get, post, param, requestBody, del } from '@loopback/rest';
 import data from '../res/appezzamenti.out.json';
 import { model } from '@loopback/repository'
 
@@ -83,6 +83,8 @@ export class WdInspectorController {
             type: "object",
             properties: {
               id: { type: "string" },
+              type: { type: "string", enum: ["criteria", "cbec"] },
+              channel: { type: "string" },
               waterVolume: { type: "number" },
               start: { type: "string", format: "date-time" },
               status: { type: "string", enum: Object.keys(IrrigationRequestStatus) }
@@ -92,25 +94,6 @@ export class WdInspectorController {
       }
     }
   }) plan: IrrigationRequest[]): void {
-    if (plan.length < 1) {
-      const today = new Date()
-      const tomorrow = new Date(today)
-      tomorrow.setDate(tomorrow.getDate() + 1)
-      const todayIrrigationReq = {
-        id: "1234",
-        waterVolume: 2,
-        start: today,
-        status: "scheduled"
-      }
-      const tomorrowIrrigationReq = {
-        id: "12345",
-        waterVolume: 1,
-        start: tomorrow,
-        status: "scheduled"
-      };
-      (plansData as any)[field] = [todayIrrigationReq, tomorrowIrrigationReq]
-
-    }
     (plansData as any)[field] = plan;
   }
 

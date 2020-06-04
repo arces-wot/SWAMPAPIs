@@ -1,5 +1,6 @@
 import { get, post, param, requestBody } from '@loopback/rest';
-
+import jsap from "../res/wda.jsap.json";
+import * as sepajs from "@arces-wot/sepa-js";
 interface WeirStatus {
   openLevel: Number;
 }
@@ -15,20 +16,25 @@ const weirStatuses: Map<string, WeirStatus> = new Map<string, WeirStatus>([
 ]);
 
 export class WeirController {
-  constructor() { }
+  sapp: any;
+  constructor() {
+    this.sapp = new sepajs.Jsap(jsap)
+  }
 
   @get('/v0/WDmanager/{id}/wdn/nodes/{nodeId}/open_level')
-  level(@param.path.string('nodeId') nodeId: string): string {
-    if (!weirStatuses.get(nodeId)) {
-      const e = new Error("No node found");
-      (e as any).status = 404;
-      throw e
+  async level(@param.path.string('nodeId') nodeId: string): Promise<string> {
+    const query = await this.sapp.WEIR_OPEN_LEVEL.query({
+      root: nodeId
+    })
+    if (query.results.bindings.length === 0) {
+      throw new Error("No weir found");
     }
-    return "" + weirStatuses.get(nodeId)?.openLevel;
+
+    return "" + query.results.bindings[0]?.level.value;
   }
 
   @post('/v0/WDmanager/{id}/wdn/nodes/{nodeId}/open_level')
-  setLevel(@param.path.string('nodeId') nodeId: string, @requestBody({
+  async setLevel(@param.path.string('nodeId') nodeId: string, @requestBody({
     required: true,
     content: {
       "application/json": {
@@ -38,13 +44,11 @@ export class WeirController {
         }
       }
     }
-  }) level: Number): void {
-    if (!weirStatuses.get(nodeId)) {
-      const e = new Error("No node found");
-      (e as any).status = 404;
-      throw e
-    }
-    weirStatuses.get(nodeId)!.openLevel = level;
+  }) level: Number): Promise<void> {
+    await this.sapp.UPDATE_WEIR_OPEN_LEVEL({
+      root: nodeId,
+      newlevel: level
+    });
   }
 
 }

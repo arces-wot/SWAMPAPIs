@@ -3,6 +3,8 @@ import data from '../res/ramo_prova.json';
 import * as sepajs from "@arces-wot/sepa-js";
 import jsap from "../res/wda.jsap.json";
 
+let oldWeirs: any = []
+
 const uriToObjKey: Map<string, string> = new Map<string, string>([
   ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL1", "monte1"],
   ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL2", "valle1"],
@@ -34,8 +36,12 @@ export class WdnController {
         }
       }
     })
+    data.nodes = data.nodes.filter(node => {
+      return !oldWeirs.some((w: any) => node.id === w.id)
+    })
 
     data.nodes.push(...weirs);
+    oldWeirs = weirs
   }
   @get('/v0/WDmanager/{id}/wdn/')
   async network(): Promise<string> {

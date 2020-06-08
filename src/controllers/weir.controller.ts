@@ -30,7 +30,7 @@ export class WeirController {
       throw new Error("No weir found");
     }
 
-    return "" + query.results.bindings[0]?.level.value;
+    return "" + query.results.bindings[0]?.level?.value;
   }
 
   @post('/v0/WDmanager/{id}/wdn/nodes/{nodeId}/open_level')

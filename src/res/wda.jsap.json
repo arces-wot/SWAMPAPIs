@@ -224,7 +224,7 @@
 			"sparql": "SELECT * WHERE {GRAPH <http://wot.arces.unibo.it/context> {?root rdf:type schema:Place; rdf:type swamp:Weir ; schema:name ?name ;  schema:GeoCoordinates ?coordinate . ?coordinate schema:latitude ?lat ; schema:longitude ?long }}"
 		},
 		"WEIR_OPEN_LEVEL": {
-			"sparql": "SELECT * WHERE {  GRAPH <http://wot.arces.unibo.it/context> {    ?root rdf:type schema:Place;          rdf:type swamp:Weir ;          swamp2:openingLevel ?level.  }}",
+			"sparql": "SELECT * WHERE {  GRAPH <http://wot.arces.unibo.it/context> {    ?root rdf:type schema:Place;          rdf:type swamp:Weir .    optional{          ?root swamp2:openingLevel ?level.    }  }}",
 			"forcedBindings": {
 				"root": {
 					"type": "uri"

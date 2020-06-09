@@ -1,5 +1,8 @@
 import { get } from '@loopback/rest';
 import data from '../res/appezzamenti.out.json';
+import jsap from "../res/wda.jsap.json";
+import * as sepajs from "@arces-wot/sepa-js";
+import { farms } from './model';
 
 const model = {
   name: "Consorzio di Bonifica dell'Emilia Centrale (CBEC)",
@@ -33,11 +36,14 @@ const model = {
 }
 
 export class WdManagerController {
-  constructor() { }
+  sapp: any;
+  constructor() {
+    this.sapp = new sepajs.Jsap(jsap)
+  }
 
   @get('/v0/WDmanager/{id}')
-  manager(): string {
-    return JSON.stringify(model)
+  async manager(): Promise<string> {
+    return JSON.stringify(await farms())
   }
 
   @get('/v0/WDmanager')

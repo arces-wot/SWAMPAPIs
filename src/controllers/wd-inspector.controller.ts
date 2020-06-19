@@ -2,7 +2,7 @@
 import { get, post, param, requestBody, del } from '@loopback/rest';
 import data from '../res/appezzamenti.out.json';
 import { model } from '@loopback/repository'
-import { farms } from './model';
+import { farms, requestsByField, irrigation, setIrrigationStatus } from './model';
 
 const plansData = {};
 
@@ -43,9 +43,8 @@ export class WdInspectorController {
 
 
   @get('/v0/WDmanager/{id}/WDMInspector/{ispector}/AssignedFarms/{field}/irrigation_plan')
-  plan(@param.path.string('field') field: string): string {
-    console.log((plansData as any)[field], field, plansData)
-    return JSON.stringify((plansData as any)[field])
+  async plan(@param.path.string('field') field: string): Promise<string> {
+    return JSON.stringify(await requestsByField(field))
   }
 
   @post('/v0/WDmanager/{id}/WDMInspector/{ispector}/AssignedFarms/{field}/irrigation_plan')
@@ -74,9 +73,8 @@ export class WdInspectorController {
   }
 
   @get('/v0/WDmanager/{id}/WDMInspector/{ispector}/AssignedFarms/{field}/irrigation_plan/{request}')
-  request(@param.path.string('field') field: string, @param.path.string('request') request: string) {
-    const req = (plansData as any)[field].find((ele: any) => ele.id === request);
-    return req;
+  async request(@param.path.string('field') field: string, @param.path.string('request') request: string) {
+    return await irrigation(request);
   }
 
   @del('/v0/WDmanager/{id}/WDMInspector/{ispector}/AssignedFarms/{field}/irrigation_plan/{request}')
@@ -85,7 +83,7 @@ export class WdInspectorController {
   }
 
   @post('/v0/WDmanager/{id}/WDMInspector/{ispector}/AssignedFarms/{field}/irrigation_plan/{request}/status')
-  setRequestStatus(@param.path.string('field') field: string,
+  async setRequestStatus(@param.path.string('field') field: string,
     @param.path.string('request') request: string,
     @requestBody({
       required: true,
@@ -100,10 +98,8 @@ export class WdInspectorController {
           }
         }
       }
-    }) change: RequestStatusChange): void {
-    const req = (plansData as any)[field].find((ele: any) => ele.id === request);
-    req.status = change.status.toString();
-    req.message = change.message.toString();
+    }) change: RequestStatusChange): Promise<void> {
+    await setIrrigationStatus(request, change.status)
   }
 }
 

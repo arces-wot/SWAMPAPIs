@@ -61,6 +61,18 @@
 					"type": "literal"
 				}
 			}
+		},
+		"UPDATE_IRRIGATION_STATUS": {
+			"sparql": "WITH  <http://swamp-project.org/cbec/irrigation>DELETE {  ?irr swamp2:hasCurrentStatus ?status.} INSERT {  ?irr swamp2:hasCurrentStatus ?newStatus.} WHERE {  ?irr rdf:type swamp2:IrrigationRequest ;       swamp2:hasCurrentStatus ?status.}",
+			"forcedBindings": {
+				"irr": {
+					"type": "uri",
+					"value": "http://swamp-project.org/cbec/no_weir"
+				},
+				"newStatus": {
+					"type": "uri"
+				}
+			}
 		}
 	},
 	"queries": {
@@ -307,9 +319,18 @@
 			"sparql": "SELECT (COUNT(?forecast) AS ?count) WHERE {GRAPH <http://wot.arces.unibo.it/forecast> {?forecast rdf:type swamp:Forecast}}"
 		},
 		"IRRIGATION_REQUESTS_BY_FIELD": {
-			"sparql": "SELECT * FROM <http://swamp-project.org/cbec/irrigation> FROM <http://swamp-project.org/cbec/field> WHERE {  ?irr rdf:type swamp2:IrrigationRequest ;       time:inXSDDateTimeStamp ?timestamp ;       swamp2:issuedBy ?issuedBy ;       swamp2:hasCurrentStatus ?currentStatus ;       swamp2:requestNumber ?requestNumber ;       swamp2:reservationNumber ?reservationNumber ;       swamp2:hasField ?fieldUri ;       swamp2:hasStatus ?status .  ?fieldUri swamp2:hasCanal ?channel.  ?status time:inXSDDateTimeStamp ?timeStatus ;          swamp2:requestStatus ?reqStatus.} ORDER BY ?timestamp",
+			"sparql": "SELECT * FROM <http://swamp-project.org/cbec/irrigation> FROM <http://swamp-project.org/cbec/field> WHERE {  ?irr rdf:type swamp2:IrrigationRequest ;       time:inXSDDateTimeStamp ?timestamp ;       swamp2:issuedBy ?issuedBy ;       swamp2:hasCurrentStatus ?currentStatus ;       swamp2:requestNumber ?requestNumber ;       swamp2:reservationNumber ?reservationNumber ;       swamp2:hasField ?fieldUri.  ?fieldUri swamp2:hasCanal ?channel.} ORDER BY ?timestamp",
 			"forcedBindings": {
 				"fieldUri": {
+					"type": "uri",
+					"value": "http://swamp-project.org/cbec/field_23566"
+				}
+			}
+		},
+		"IRRIGATION_REQUEST": {
+			"sparql": "SELECT * FROM <http://swamp-project.org/cbec/irrigation> FROM <http://swamp-project.org/cbec/field> WHERE {  ?irr rdf:type swamp2:IrrigationRequest ;       time:inXSDDateTimeStamp ?timestamp ;       swamp2:issuedBy ?issuedBy ;       swamp2:hasCurrentStatus ?currentStatus ;       swamp2:requestNumber ?requestNumber ;       swamp2:reservationNumber ?reservationNumber ;       swamp2:hasField ?fieldUri.  ?fieldUri swamp2:hasCanal ?channel.} ORDER BY ?timestamp",
+			"forcedBindings": {
+				"irr": {
 					"type": "uri",
 					"value": "http://swamp-project.org/cbec/field_23566"
 				}

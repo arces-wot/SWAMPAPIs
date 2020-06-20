@@ -2,7 +2,7 @@
 import { get, post, param, requestBody, del } from '@loopback/rest';
 import data from '../res/appezzamenti.out.json';
 import { model } from '@loopback/repository'
-import { farms, requestsByField, irrigation, setIrrigationStatus } from './model';
+import { farms, requestsByField, irrigation, setIrrigationStatus, presentRequests } from './model';
 
 const plansData = {};
 
@@ -36,6 +36,12 @@ export class WdInspectorController {
       surname: "Rossi"
     })
   }
+
+  @get('/v0/WDmanager/{id}/WDMInspector/{inspector}/irrigation_plan')
+  async irrigationPlan(): Promise<string> {
+    return JSON.stringify(await presentRequests());
+  }
+
   @get('/v0/WDmanager/{id}/WDMInspector/{ispector}/assigned_farms')
   async fields() {
     return JSON.stringify(await farms())

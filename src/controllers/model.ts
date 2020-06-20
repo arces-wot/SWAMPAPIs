@@ -60,6 +60,29 @@ export async function requestsByField(fieldURI: string) {
 
 }
 
+export async function presentRequests() {
+  const from = new Date(new Date().setUTCHours(0, 0, 0, 0))
+  const to = new Date(from)
+  to.setDate(to.getDate() + 2);
+  console.log(from.toISOString(), to.toISOString())
+
+  const query = await sapp.IRRIGATION_REQUESTS.query({
+    from: from.toISOString(),
+    to: to.toISOString()
+  })
+
+  return query.results.bindings.map((binding: any) => ({
+    id: binding.irr.value,
+    field: binding.fieldUri.value,
+    type: binding.issuedBy.value.split("#")[1],
+    channel: binding.channel.value,
+    waterVolume: Math.floor(1 + Math.random() * 5),
+    start: binding.timestamp.value,
+    status: convertToEnum(binding.currentStatus.value)
+  }))
+
+}
+
 export async function irrigation(id: string) {
   const query = await sapp.IRRIGATION_REQUEST.query({
     irr: id

@@ -332,7 +332,7 @@
 			}
 		},
 		"IRRIGATION_REQUESTS": {
-			"sparql": "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>SELECT * FROM <http://swamp-project.org/cbec/irrigation> FROM <http://swamp-project.org/cbec/field> WHERE {  ?irr rdf:type swamp2:IrrigationRequest ;       time:inXSDDateTimeStamp ?timestamp ;       swamp2:issuedBy ?issuedBy ;       swamp2:hasCurrentStatus ?currentStatus ;       swamp2:requestNumber ?requestNumber ;       swamp2:reservationNumber ?reservationNumber ;       swamp2:hasField ?fieldUri .  ?fieldUri swamp2:hasCanal ?channel .  FILTER(xsd:dateTime(?timestamp) >= xsd:dateTime(?from) && xsd:dateTime(?timestamp) < xsd:dateTime(?to))} ORDER BY ?timestamp",
+			"sparql": "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>SELECT * FROM <http://swamp-project.org/cbec/irrigation> FROM <http://swamp-project.org/cbec/field> FROM NAMED <http://swamp-project.org/cbec/canal> WHERE {  ?irr rdf:type swamp2:IrrigationRequest ;       time:inXSDDateTimeStamp ?timestamp ;       swamp2:issuedBy ?issuedBy ;       swamp2:hasCurrentStatus ?currentStatus ;       swamp2:requestNumber ?requestNumber ;       swamp2:reservationNumber ?reservationNumber ;       swamp2:hasField ?fieldUri .  ?fieldUri swamp2:hasCanal ?channelCode . optional{ graph <http://swamp-project.org/cbec/canal> {    ?channelCode rdf:type swamp2:Canal ;            rdf:type <http://aims.fao.org/aos/agrovoc/c_25340> ;            rdfs:label ?channelLabel  }  }  FILTER(xsd:dateTime(?timestamp) >= xsd:dateTime(?from) && xsd:dateTime(?timestamp) < xsd:dateTime(?to))} ORDER BY ?timestamp",
 			"forcedBindings": {
 				"from": {
 					"type": "literal",

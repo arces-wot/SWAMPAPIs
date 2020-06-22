@@ -75,7 +75,10 @@ export async function presentRequests() {
     id: binding.irr.value,
     field: binding.fieldUri.value,
     type: binding.issuedBy.value.split("#")[1],
-    channel: binding.channel.value,
+    channel: {
+      id: binding.channelCode.value,
+      name: binding.channelLabel?.value
+    },
     waterVolume: Math.floor(1 + Math.random() * 5),
     start: binding.timestamp.value,
     status: convertToEnum(binding.currentStatus.value)

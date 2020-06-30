@@ -9,14 +9,14 @@ const uriToObjKey: Map<string, string> = new Map<string, string>([
   ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL1", "monte1"],
   ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL2", "valle1"],
   ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL3", "fosd1"],
-  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL4", "condotto"],
-  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL5", "sm"],
-  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL6", "fosdSud"],
-  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL7", "fosdNord"],
+  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL4", "sm"],
+  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL5", "condotto"],
+  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL6", "valle2"],
+  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL7", "valle3"],
   ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL8", "monte2"],
-  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL9", "valle2"],
+  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL9", "fosdSud"],
   ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL10", "monte3"],
-  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL11", "valle3"],
+  ["http://wot.arces.unibo.it/monitor#SanMicheleLevelsL11", "fosdNord"],
 ])
 export class WdnController {
   constructor() { }
@@ -147,8 +147,8 @@ export class WdnController {
       },
       "condotto": {
         location: {
-          lat: 44.78681421926258,
-          lon: 10.7145020987453
+          lat: 44.7791,
+          lon: 10.71729
         }
       },
       "sm": {

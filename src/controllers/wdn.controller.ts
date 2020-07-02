@@ -111,14 +111,14 @@ export class WdnController {
       },
       "monte2": {
         location: {
-          lat: 44.778223472769035,
-          lon: 10.72461049592701
+          lat: 44.780756411527225,
+          lon: 10.725877809627292
         }
       },
       "fosdSud": {
         location: {
-          lat: 44.780756411527225,
-          lon: 10.725877809627292
+          lat: 44.7864,
+          lon: 10.7429
         }
       },
       "valle2": {
@@ -129,20 +129,20 @@ export class WdnController {
       },
       "monte3": {
         location: {
-          lat: 44.7819127535112,
-          lon: 10.718394416416515
-        }
-      },
-      "fosdNord": {
-        location: {
           lat: 44.785044334659716,
           lon: 10.722600423827231
         }
       },
+      "fosdNord": {
+        location: {
+          lat: 44.7908,
+          lon: 10.7403
+        }
+      },
       "valle3": {
         location: {
-          lat: 44.7856636137669,
-          lon: 10.71559051835331
+          lat: 44.7884857803281,
+          lon: 10.712966004579243
         }
       },
       "condotto": {
@@ -153,8 +153,8 @@ export class WdnController {
       },
       "sm": {
         location: {
-          lat: 44.7884857803281,
-          lon: 10.712966004579243
+          lat: 44.79753,
+          lon: 10.71098
         }
       },
     }

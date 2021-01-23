@@ -1,6 +1,7 @@
 import jsap from "../res/wda.jsap.json";
 import * as sepajs from "@arces-wot/sepa-js";
 import { IrrigationRequestStatus } from "./wd-inspector.controller";
+import { format } from "path";
 
 const sapp = new sepajs.Jsap(jsap)
 
@@ -46,18 +47,21 @@ export async function farms() {
 
 export async function requestsByField(fieldURI: string) {
   const query = await sapp.IRRIGATION_REQUESTS_BY_FIELD.query({
-    fieldUri: fieldURI
+    fieldUri: fieldURI,
+    from: new Date().toISOString()
   })
 
-  return query.results.bindings.map((binding: any) => ({
-    id: binding.irr.value,
-    type: binding.issuedBy.value.split("#")[1],
-    channel: binding.channel.value,
-    waterVolume: Math.floor(1 + Math.random() * 5),
-    start: binding.timestamp.value,
-    status: convertToEnum(binding.currentStatus.value)
-  }))
+  return formatPlans(query.results.bindings);
+}
 
+export async function requestByDateAndField(fieldURI: string, from: Date, to: Date) {
+  const query = await sapp.IRRIGATION_REQUESTS_BY_FIELD.query({
+    fieldUri: fieldURI,
+    from: from.toISOString(),
+    to: to.toISOString()
+  })
+
+  return formatPlans(query.results.bindings, fieldURI);
 }
 
 export async function presentRequests() {
@@ -116,4 +120,19 @@ export async function setIrrigationStatus(irr: string, status: IrrigationRequest
 function convertToEnum(uri: string) {
   return uri.split("#")[1]
 
+}
+
+function formatPlans(bindings: Array<unknown>, field?: string) {
+  return bindings.map((binding: any) => ({
+    id: binding.irr.value,
+    field: field,
+    type: binding.issuedBy.value.split("#")[1],
+    channel: {
+      id: binding.channel.value,
+      name: binding.channelLabel?.value
+    },
+    waterVolume: Math.floor(1 + Math.random() * 5),
+    start: binding.timestamp.value,
+    status: convertToEnum(binding.currentStatus.value)
+  }))
 }

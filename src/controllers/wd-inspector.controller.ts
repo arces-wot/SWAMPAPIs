@@ -2,7 +2,7 @@
 import { get, post, param, requestBody, del } from '@loopback/rest';
 import data from '../res/appezzamenti.out.json';
 import { model } from '@loopback/repository'
-import { farms, requestsByField, irrigation, requestByDateAndField, setIrrigationStatus, presentRequests } from './model';
+import { farms, requestsByField, irrigation, requests, requestByDateAndField, setIrrigationStatus, presentRequests } from './model';
 
 const plansData = {};
 
@@ -37,6 +37,11 @@ export class WdInspectorController {
     })
   }
 
+  @get('/v0/WDmanager/{id}/WDMInspector/irrigations')
+  async irrigations(@param.query.string('from') fromDate: string, @param.query.string('to') to: string): Promise<string> {
+    return requests(new Date(Date.parse(fromDate)), new Date(Date.parse(to)))
+  }
+
   @get('/v0/WDmanager/{id}/WDMInspector/{inspector}/irrigation_plan')
   async irrigationPlan(): Promise<string> {
     return JSON.stringify(await presentRequests());
@@ -53,7 +58,7 @@ export class WdInspectorController {
     return JSON.stringify(await requestsByField(field))
   }
 
-  @get('/v0/WDmanager/{id}/WDMInspector/{ispector}/AssignedFarms/{field}/historic_plan/')
+  @get('/v0/WDmanager/{id}/WDMInspector/{ispector}/AssignedFarms/{field}/irrigations')
   async historicPlan(@param.path.string('field') field: string, @param.query.string('from') fromDate: string, @param.query.string('to') to: string): Promise<string> {
     return JSON.stringify(await requestByDateAndField(field, new Date(Date.parse(fromDate)), new Date(Date.parse(to))))
   }

@@ -44,7 +44,25 @@ export async function farms() {
   return model
 }
 
+export async function requests(from: Date, to: Date) {
+  const query = await sapp.IRRIGATION_REQUESTS.query({
+    from: from.toISOString(),
+    to: to.toISOString()
+  })
 
+  return query.results.bindings.map((binding: any) => ({
+    id: binding.irr.value,
+    field: binding.fieldUri.value,
+    type: binding.issuedBy.value.split("#")[1],
+    channel: {
+      id: binding.channelCode.value,
+      name: binding.channelLabel?.value
+    },
+    waterVolume: Math.floor(1 + Math.random() * 5),
+    start: binding.timestamp.value,
+    status: convertToEnum(binding.currentStatus.value)
+  }))
+}
 export async function requestsByField(fieldURI: string) {
   const query = await sapp.IRRIGATION_REQUESTS_BY_FIELD.query({
     fieldUri: fieldURI,

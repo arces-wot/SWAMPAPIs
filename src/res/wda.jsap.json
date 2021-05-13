@@ -320,7 +320,7 @@
 			"sparql": "SELECT (COUNT(?forecast) AS ?count) WHERE {GRAPH <http://wot.arces.unibo.it/forecast> {?forecast rdf:type swamp:Forecast}}"
 		},
 		"IRRIGATION_REQUESTS_BY_FIELD": {
-			"sparql": "SELECT * FROM <http://swamp-project.org/cbec/irrigation> FROM <http://swamp-project.org/cbec/field> WHERE {  ?irr rdf:type swamp2:IrrigationRequest ;       time:inXSDDateTimeStamp ?timestamp ;       swamp2:issuedBy ?issuedBy ;       swamp2:hasCurrentStatus ?currentStatus ;       swamp2:requestNumber ?requestNumber ;       swamp2:reservationNumber ?reservationNumber ;       swamp2:hasField ?fieldUri.  ?fieldUri swamp2:hasCanal ?channel.   FILTER(xsd:dateTime(?timestamp) > xsd:dateTime(?from))} ORDER BY ?timestamp",
+			"sparql": "SELECT * FROM <http://swamp-project.org/cbec/irrigation/2020> FROM <http://swamp-project.org/cbec/field> WHERE {  ?irr rdf:type swamp2:IrrigationRequest ;       time:inXSDDateTimeStamp ?timestamp ;       swamp2:issuedBy ?issuedBy ;       swamp2:hasCurrentStatus ?currentStatus ;       swamp2:requestNumber ?requestNumber ;       swamp2:reservationNumber ?reservationNumber ;       swamp2:hasField ?fieldUri.  ?fieldUri swamp2:hasCanal ?channel.   FILTER(xsd:dateTime(?timestamp) > xsd:dateTime(?from))} ORDER BY ?timestamp",
 			"forcedBindings": {
 				"fieldUri": {
 					"type": "uri",
@@ -346,7 +346,7 @@
 			}
 		},
 		"IRRIGATION_REQUEST": {
-			"sparql": "SELECT * FROM <http://swamp-project.org/cbec/irrigation> FROM <http://swamp-project.org/cbec/field> WHERE {  ?irr rdf:type swamp2:IrrigationRequest ;       time:inXSDDateTimeStamp ?timestamp ;       swamp2:issuedBy ?issuedBy ;       swamp2:hasCurrentStatus ?currentStatus ;       swamp2:requestNumber ?requestNumber ;       swamp2:reservationNumber ?reservationNumber ;       swamp2:hasField ?fieldUri.  ?fieldUri swamp2:hasCanal ?channel.} ORDER BY ?timestamp",
+			"sparql": "SELECT * FROM <http://swamp-project.org/cbec/irrigation/2020> FROM <http://swamp-project.org/cbec/field> WHERE {  ?irr rdf:type swamp2:IrrigationRequest ;       time:inXSDDateTimeStamp ?timestamp ;       swamp2:issuedBy ?issuedBy ;       swamp2:hasCurrentStatus ?currentStatus ;       swamp2:requestNumber ?requestNumber ;       swamp2:reservationNumber ?reservationNumber ;       swamp2:hasField ?fieldUri.  ?fieldUri swamp2:hasCanal ?channel.} ORDER BY ?timestamp",
 			"forcedBindings": {
 				"irr": {
 					"type": "uri",
